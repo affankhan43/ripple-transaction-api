@@ -1,0 +1,29 @@
+{
+  "name": "ripple_transactions_api",
+  "version": "1.0.0",
+  "description": "send-xrp using nodejs server",
+  "main": "ripple.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/affankhan43/ripple-transaction-api.git"
+  },
+  "keywords": [
+    "Ripple",
+    "XRP",
+    "API",
+    "affankhan43"
+  ],
+  "author": "affankhan43",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/affankhan43/ripple-transaction-api/issues"
+  },
+  "homepage": "https://github.com/affankhan43/ripple-transaction-api#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "ripple-lib": "^1.2.1"
+  }
+}
