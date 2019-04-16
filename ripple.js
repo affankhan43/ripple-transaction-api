@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
 
-  app.post('/sendMoney', function(req, res){
+  app.post('/sendMoney',async function(req, res){
     var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     if (ip.substr(0, 7) == "::ffff:") {
       ip = ip.substr(7)
@@ -55,22 +55,35 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
           //server: 'wss://s1.ripple.com'                 // MAINNET
           server: 'wss://s.altnet.rippletest.net:51233'   // TESTNET
         })
-        api.connect().then(function(response) {
-          console.log(response)
-          api.preparePayment(ADDRESS_1, payment, instructions).then(prepared => {
-            const {signedTransaction, id} = api.sign(prepared.txJSON, SECRET_1)
-            console.log(id)
-            api.submit(signedTransaction).then(result => {
-              res.send({'status' :false, 'message':result.resultCode})
-              console.log(JSON.stringify(result, null, 2))
-              api.disconnect()
-            })
-          })
-        }).catch()
+        try{
+          await api.connect().then(async function(msg){
+            console.log("Conneted ...")
+            try{
+              await api.preparePayment(ADDRESS_1, payment, instructions).then(prepared => {
+                const {signedTransaction, id} = api.sign(prepared.txJSON, SECRET_1)
+                console.log(id)
+                api.submit(signedTransaction).then(result=>{
+                  console.log(JSON.stringify(result, null, 2))
+                  api.disconnect()
+                  if(result.resultCode == "tesSUCCESS"){
+                    res.send({'status':true,'txid':result.tx_json.hash}) 
+                  }
+                  else{
+                    res.send({'status':false,'message':"Transaction Failed"})
+                  }  
+                })
+              })
+            }catch(error){
+              res.send({'status':false,'message':'Transaction error'});  
+            }
+          }).catch()
+        }catch(error){
+          res.send({'status':false,'message':'connection error'});
+        }
       }
     }
     else{
-      res.send({'status' : 'error','message':'Unauthorized Request'});
+      res.send({'status':false,'message':'Unauthorized Request'});
     }
   });
 app.listen(3000);
