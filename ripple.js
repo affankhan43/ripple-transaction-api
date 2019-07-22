@@ -109,4 +109,70 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
       res.send({'status':false,'message':'Unauthorized Request'});
     }
   });
+  app.post('/bitcoin/validateAddress',async function(req, res){
+    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    if (ip.substr(0, 7) == "::ffff:") {
+      ip = ip.substr(7)
+    }
+    if(ip=='127.0.0.1'){
+      var Vaddress = req.body.Vaddress;
+      if(!Vaddress){
+        res.send({'status' :false, 'message':'Fields Missing'});
+      }
+      else{
+        var valid = WAValidator.validate(Vaddress, 'bitcoin');
+        if(valid)
+          res.send({'status':true,'valid':true});
+        else
+          res.send({'status':true,'valid':false});
+      }
+    }
+    else{
+      res.send({'status':false,'message':'Unauthorized Request'});
+    }
+  });
+  app.post('/eth/validateAddress',async function(req, res){
+    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    if (ip.substr(0, 7) == "::ffff:") {
+      ip = ip.substr(7)
+    }
+    if(ip=='127.0.0.1'){
+      var Vaddress = req.body.Vaddress;
+      if(!Vaddress){
+        res.send({'status' :false, 'message':'Fields Missing'});
+      }
+      else{
+        var valid = WAValidator.validate(Vaddress, 'ETH');
+        if(valid)
+          res.send({'status':true,'valid':true});
+        else
+          res.send({'status':true,'valid':false});
+      }
+    }
+    else{
+      res.send({'status':false,'message':'Unauthorized Request'});
+    }
+  });
+  app.post('/komodo/validateAddress',async function(req, res){
+    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    if (ip.substr(0, 7) == "::ffff:") {
+      ip = ip.substr(7)
+    }
+    if(ip=='127.0.0.1'){
+      var Vaddress = req.body.Vaddress;
+      if(!Vaddress){
+        res.send({'status' :false, 'message':'Fields Missing'});
+      }
+      else{
+        var valid = WAValidator.validate(Vaddress, 'komodo');
+        if(valid)
+          res.send({'status':true,'valid':true});
+        else
+          res.send({'status':true,'valid':false});
+      }
+    }
+    else{
+      res.send({'status':false,'message':'Unauthorized Request'});
+    }
+  });
 app.listen(3000);
