@@ -2,7 +2,10 @@ const express = require('express');
 const RippleAPI = require('ripple-lib').RippleAPI
 const crypto = require('crypto');
 const bodyParser = require('body-parser')
+<<<<<<< HEAD
 const WAValidator = require('wallet-address-validator');
+=======
+>>>>>>> b4b545716f9fde318292bf9ed092119cdd2a1f87
 const app = express();
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
@@ -14,7 +17,11 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     if (ip.substr(0, 7) == "::ffff:") {
       ip = ip.substr(7)
     }
+<<<<<<< HEAD
     if(ip=='0.0.0.0'){
+=======
+    if(ip=='127.0.0.1'){
+>>>>>>> b4b545716f9fde318292bf9ed092119cdd2a1f87
       var address1 = req.body.address1;
       var address2 = req.body.address2;
       const des_tag = req.body.des_tag;
@@ -87,4 +94,8 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
       res.send({'status':false,'message':'Unauthorized Request'});
     }
   });
+<<<<<<< HEAD
 app.listen(0.0.0.0:3003);
+=======
+app.listen(3000);
+>>>>>>> b4b545716f9fde318292bf9ed092119cdd2a1f87
