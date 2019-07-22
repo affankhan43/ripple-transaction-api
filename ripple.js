@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
 
-  app.post('/sendMoney',async function(req, res){
+  app.post('/ripple/sendMoney',async function(req, res){
     var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     if (ip.substr(0, 7) == "::ffff:") {
       ip = ip.substr(7)
@@ -87,7 +87,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
       res.send({'status':false,'message':'Unauthorized Request'});
     }
   });
-  app.post('/validateAddress',async function(req, res){
+  app.post('/ripple/validateAddress',async function(req, res){
     var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     if (ip.substr(0, 7) == "::ffff:") {
       ip = ip.substr(7)
