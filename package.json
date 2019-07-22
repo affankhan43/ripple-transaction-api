@@ -24,11 +24,7 @@
   "homepage": "https://github.com/affankhan43/ripple-transaction-api#readme",
   "dependencies": {
     "express": "^4.16.4",
-<<<<<<< HEAD
     "ripple-lib": "^1.2.1",
     "wallet-address-validator": "^0.2.4"
-=======
-    "ripple-lib": "^1.2.1"
->>>>>>> b4b545716f9fde318292bf9ed092119cdd2a1f87
   }
 }
